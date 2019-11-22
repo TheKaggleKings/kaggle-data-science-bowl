@@ -15,3 +15,7 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
+    - name: setup environment
+      run: make setup
+    - name: run tests
+      run: make tests
