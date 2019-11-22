@@ -18,4 +18,4 @@ jobs:
     - name: setup environment
       run: pip install -r requirements.txt
     - name: run tests
-      run: make tests
+      run: python -m pytest tests/
