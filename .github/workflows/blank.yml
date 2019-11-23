@@ -15,7 +15,5 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
-    - name: setup environment
-      run: pip install -r requirements.txt
     - name: run tests
       run: python -m pytest tests/
