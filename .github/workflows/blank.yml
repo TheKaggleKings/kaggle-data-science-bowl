@@ -17,7 +17,7 @@ jobs:
         echo test, and deploy your project.
     - name: Setup environment
       run: |
-        apt-get install python3-venv 
+        sudo apt-get install python3-venv 
         make setup
     - name: Run tests
       run: make tests
