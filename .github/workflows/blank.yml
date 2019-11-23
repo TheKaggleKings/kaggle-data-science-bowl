@@ -16,6 +16,8 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
     - name: Setup environment
-      run: pip3 install -r requirements.txt
+      run: |
+        apt-get install python3-venv 
+        make setup
     - name: Run tests
-      run: python3 -m pytest tests/
+      run: make tests
