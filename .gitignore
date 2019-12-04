@@ -1,8 +1,8 @@
- # Pycharm
- .idea/
+# Pycharm
+.idea/
 
 # Virtual environment
- .venv/
+.venv/
 
 # Data
 
