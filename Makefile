@@ -8,7 +8,7 @@ BIN = ${VENV}/bin/
 all: setup docs
 
 # Setup
-setup: ${VENV} install_requirements download_data
+setup: ${VENV} install_requirements
 
 ${VENV}:
 	python3 -m venv $@
