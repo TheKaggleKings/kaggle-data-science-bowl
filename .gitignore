@@ -5,6 +5,7 @@
 .venv/
 
 # Data
+/data/
 
 # Docs
 /docs/_build/
