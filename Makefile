@@ -22,6 +22,7 @@ requirements:
 
 # Documentation
 docs: docs/conf.py docs/index.rst
+	-rm -r docs/_build
 	$(BIN)sphinx-build -b html docs docs/_build
 
 # Tests
