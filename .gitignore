@@ -16,3 +16,6 @@ __pycache__/
 # Other assorted files
 .directory
 
+#ipynb checkpoint files
+.ipynb_checkpoints
+

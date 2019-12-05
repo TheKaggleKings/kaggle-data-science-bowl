@@ -5,7 +5,7 @@ VENV = .venv
 BIN = ${VENV}/bin/
 
 # Code to run when calling `make` by itself. This must be the top instruction in the file.
-all: setup docs
+all: setup docs download_data
 
 # Setup
 setup: ${VENV} install_requirements
