@@ -19,3 +19,5 @@ __pycache__/
 #ipynb checkpoint files
 .ipynb_checkpoints
 
+#Luca's testing file
+test.py
