@@ -2,3 +2,4 @@ sphinx
 jupyter
 pytest
 kaggle
+pandas

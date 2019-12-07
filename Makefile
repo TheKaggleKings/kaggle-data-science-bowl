@@ -5,7 +5,7 @@ VENV = .venv
 BIN = ${VENV}/bin/
 
 # Code to run when calling `make` by itself. This must be the top instruction in the file.
-all: setup docs download_data
+all: setup docs download_data preprocess_data
 
 # Setup
 setup: ${VENV} install_requirements
@@ -28,6 +28,10 @@ docs: docs/conf.py docs/index.rst
 # Tests
 tests:
 	$(BIN)python -m pytest tests/
+
+#Preprocessing pipelines
+preprocess_data:
+	(cd src/data/ ; python data_optimizer_script.py)
 
 # Data -----------------------------------------------------------------------------------------------------------------
 download_data: data/raw/sample_submission.csv data/raw/specs.csv data/raw/test.csv data/raw/train.csv \
