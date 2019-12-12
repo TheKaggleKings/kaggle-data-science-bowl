@@ -5,13 +5,11 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: python:3.7.3
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup environment
-      run: |
-        sudo apt-get install python3-venv 
-        make setup
+    - name: build entire pipeline
+      run: make all
     - name: Run tests
       run: make tests
