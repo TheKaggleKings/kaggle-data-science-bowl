@@ -62,12 +62,11 @@ chunksize = 10 ** 6
 for chunk in pd.read_csv("../../data/raw/train.csv", chunksize=chunksize):
     i += 1
     print(i)
-    print(chunk.head())
     original_data_size, new_data_size,sample_data=optimize_chunk(chunk,i,original_data_size,new_data_size)
     print("The total original data size was: "+str(round(original_data_size,2))+" and the new total data size is: "+str(round(new_data_size,2)))
     if  i==1:
         final_data=sample_data
-    final_data.append(sample_data)
+    final_data=final_data.append(sample_data)
     # if i == 2:
     #     break
 # ### Store data as a pickle
