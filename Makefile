@@ -8,13 +8,15 @@ BIN = ${VENV}/bin/
 all: setup docs download_data preprocess_data
 
 # Setup
-setup: ${VENV} install_requirements
+setup: ${VENV} install_requirements docs tests
 
 ${VENV}:
 	python3 -m venv $@
 
 install_requirements: requirements.txt
+	$(BIN)pip install --upgrade pip
 	$(BIN)pip install -r requirements.txt
+	pre-commit install
 
 # List requirements
 requirements:
@@ -57,3 +59,11 @@ data/raw/train_labels.csv:
 	$(BIN)kaggle competitions download data-science-bowl-2019 -f train_labels.csv -p data/raw
 	unzip data/raw/train_labels.csv.zip -d data/raw
 	rm data/raw/train_labels.csv.zip
+
+docker:
+	-docker rm -f $(shell docker ps -aq)
+	docker build --tag nameofdockerimage .
+	docker run --name temporarycontainername nameofdockerimage
+
+tests:
+	pytest
