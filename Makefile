@@ -8,7 +8,7 @@ BIN = ${VENV}/bin/
 all: setup docs download_data preprocess_data
 
 # Setup
-setup: ${VENV} install_requirements docs tests
+setup: ${VENV} install_requirements docs
 
 ${VENV}:
 	python3 -m venv $@
@@ -33,7 +33,7 @@ tests:
 
 #Preprocessing pipelines
 preprocess_data:
-	(cd src/data/ ; python data_optimizer_script.py)
+	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
 
 # Data -----------------------------------------------------------------------------------------------------------------
 download_data: data/raw/sample_submission.csv data/raw/specs.csv data/raw/test.csv data/raw/train.csv \
