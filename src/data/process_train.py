@@ -16,10 +16,20 @@ def main():
     df = pd.read_pickle(file_in)
 
     # Process stuff
-    # Comment
+    features = make_title_features(df)
 
     file_out = os.path.join(DIR.ROOT, "data", "processed", "features.pkl")
-    df.to_pickle(file_out)
+    features.to_pickle(file_out)
+
+
+def make_title_features(df):
+    df1 = df[["title", "installation_id"]].drop_duplicates()
+    df1["temp"] = True
+    features = df1.pivot(
+        columns="title", values="temp", index="installation_id"
+    ).fillna(False)
+
+    return features
 
 
 if __name__ == "__main__":
