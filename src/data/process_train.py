@@ -13,7 +13,8 @@ def main():
     file_in = os.path.join(
         DIR.ROOT, "data", "processed", "memory_optimized_data.pkl"
     )
-    data = pd.read_pickle(file_in)
+
+    df = pd.read_pickle(file_in)
 
     # Process stuff
     features = make_title_features(df)
