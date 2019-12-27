@@ -71,3 +71,6 @@ data/processed/memory_optimized_data.pkl: src/data/data_optimizer_script.py data
 
 data/processed/features.pkl: src/data/process_train.py data/processed/memory_optimized_data.pkl
 	$(BIN)python -m src.data.process_train
+
+data/processed/test.pkl: src/data/clean_test.py
+	$(BIN)python -m src.data.clean_test
