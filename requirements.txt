@@ -4,5 +4,6 @@ pytest
 kaggle
 pandas
 loguru
+jupyterlab
 pre-commit
 black

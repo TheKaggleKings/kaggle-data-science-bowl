@@ -87,7 +87,8 @@ for chunk in pd.read_csv("../../data/raw/train.csv", chunksize=chunksize):
     )
     if i == 1:
         final_data = sample_data
-    final_data = final_data.append(sample_data)
+    else:
+        final_data = final_data.append(sample_data)
     # if i == 2:
     #     break
 # ### Store data as a pickle

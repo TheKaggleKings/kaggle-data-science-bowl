@@ -21,3 +21,5 @@ __pycache__/
 
 #Luca's testing file
 to_delete.py
+
+.DS_Store
