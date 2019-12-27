@@ -1,11 +1,11 @@
-.PHONY: all setup install_requirements requirements docs tests download_data
+.PHONY: all setup install_requirements requirements docs tests download_data data
 
 # Set name of virtual environment here
 VENV = .venv
 BIN = ${VENV}/bin/
 
 # Code to run when calling `make` by itself. This must be the top instruction in the file.
-all: setup docs download_data preprocess_data
+all: setup docs download_data data
 
 # Setup
 setup: ${VENV} install_requirements docs
@@ -31,11 +31,12 @@ docs: docs/conf.py docs/index.rst
 tests:
 	$(BIN)python -m pytest tests/
 
-#Preprocessing pipelines
-preprocess_data:
-	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
+docker:
+	-docker rm -f $(shell docker ps -aq)
+	docker build --tag nameofdockerimage .
+	docker run --name temporarycontainername nameofdockerimage
 
-# Data -----------------------------------------------------------------------------------------------------------------
+# Download Data --------------------------------------------------------------------------------------------------------
 download_data: data/raw/sample_submission.csv data/raw/specs.csv data/raw/test.csv data/raw/train.csv \
 data/raw/train_labels.csv
 
@@ -60,10 +61,16 @@ data/raw/train_labels.csv:
 	unzip data/raw/train_labels.csv.zip -d data/raw
 	rm data/raw/train_labels.csv.zip
 
-docker:
-	-docker rm -f $(shell docker ps -aq)
-	docker build --tag nameofdockerimage .
-	docker run --name temporarycontainername nameofdockerimage
 
-tests:
-	pytest
+# DATA WRANGLING -------------------------------------------------------------------------------------------------------
+data: data/processed/features.pkl data/processed/memory_optimized_data.pkl
+
+#Preprocessing pipelines
+data/processed/memory_optimized_data.pkl: src/data/data_optimizer_script.py data/raw/train.csv
+	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
+
+data/processed/features.pkl: src/data/process_train.py data/processed/memory_optimized_data.pkl
+	$(BIN)python -m src.data.process_train
+
+data/processed/test.pkl: src/data/clean_test.py
+	$(BIN)python -m src.data.clean_test

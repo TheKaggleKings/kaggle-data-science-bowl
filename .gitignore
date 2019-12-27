@@ -12,6 +12,7 @@
 
 # Python
 __pycache__/
+*-checkpoint.ipynb
 
 # Other assorted files
 .directory
@@ -21,3 +22,5 @@ __pycache__/
 
 #Luca's testing file
 to_delete.py
+
+.DS_Store
