@@ -2,3 +2,7 @@ sphinx
 jupyter
 pytest
 kaggle
+pandas
+loguru
+pre-commit
+black

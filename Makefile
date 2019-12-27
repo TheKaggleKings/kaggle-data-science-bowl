@@ -5,16 +5,18 @@ VENV = .venv
 BIN = ${VENV}/bin/
 
 # Code to run when calling `make` by itself. This must be the top instruction in the file.
-all: setup docs download_data
+all: setup docs download_data preprocess_data
 
 # Setup
-setup: ${VENV} install_requirements
+setup: ${VENV} install_requirements docs
 
 ${VENV}:
 	python3 -m venv $@
 
 install_requirements: requirements.txt
+	$(BIN)pip install --upgrade pip
 	$(BIN)pip install -r requirements.txt
+	$(BIN)pre-commit install
 
 # List requirements
 requirements:
@@ -28,6 +30,10 @@ docs: docs/conf.py docs/index.rst
 # Tests
 tests:
 	$(BIN)python -m pytest tests/
+
+#Preprocessing pipelines
+preprocess_data:
+	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
 
 # Data -----------------------------------------------------------------------------------------------------------------
 download_data: data/raw/sample_submission.csv data/raw/specs.csv data/raw/test.csv data/raw/train.csv \
@@ -53,3 +59,11 @@ data/raw/train_labels.csv:
 	$(BIN)kaggle competitions download data-science-bowl-2019 -f train_labels.csv -p data/raw
 	unzip data/raw/train_labels.csv.zip -d data/raw
 	rm data/raw/train_labels.csv.zip
+
+docker:
+	-docker rm -f $(shell docker ps -aq)
+	docker build --tag nameofdockerimage .
+	docker run --name temporarycontainername nameofdockerimage
+
+tests:
+	pytest
