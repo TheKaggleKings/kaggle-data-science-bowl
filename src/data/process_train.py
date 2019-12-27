@@ -18,8 +18,15 @@ def main():
     # Process stuff
     features = make_title_features(df)
 
+    # Filter to only stuff which we have labels for
+    file_in = os.path.join(DIR.ROOT, "data", "raw", "train_labels.csv")
+    labels = pd.read_csv(file_in)
+    subset = features.loc[labels.installation_id.unique()]
+
+    full = subset.reset_index().merge(labels, on="installation_id")
+
     file_out = os.path.join(DIR.ROOT, "data", "processed", "features.pkl")
-    features.to_pickle(file_out)
+    full.to_pickle(file_out)
 
 
 def make_title_features(df):
@@ -28,6 +35,8 @@ def make_title_features(df):
     features = df1.pivot(
         columns="title", values="temp", index="installation_id"
     ).fillna(False)
+
+    features.columns = features.columns.astype(str)
 
     return features
 
