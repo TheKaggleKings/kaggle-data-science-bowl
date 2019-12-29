@@ -8,3 +8,6 @@ jupyterlab
 pre-commit
 black
 plotly
+matplotlib
+pydot
+graphviz
