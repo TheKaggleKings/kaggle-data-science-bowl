@@ -1,21 +1,23 @@
 import pandas as pd
 import os
+import sys
 from src.constants import DIR
 
 
-def main():
+def main(file_in, file_out):
     """
     Takes the cleaned data from data/clean and feature engineers some stuff to be documented later :)
 
     :return:
     """
-
-    file_in = os.path.join(
-        DIR.ROOT, "data", "processed", "memory_optimized_data.pkl"
-    )
-
     df = pd.read_pickle(file_in)
 
+    full = process_train(df)
+
+    full.to_pickle(file_out)
+
+
+def process_train(df):
     # Process stuff
     features = make_title_features(df)
 
@@ -26,8 +28,7 @@ def main():
 
     full = subset.reset_index().merge(labels, on="installation_id")
 
-    file_out = os.path.join(DIR.ROOT, "data", "processed", "features.pkl")
-    full.to_pickle(file_out)
+    return full
 
 
 def make_title_features(df):
@@ -43,4 +44,5 @@ def make_title_features(df):
 
 
 if __name__ == "__main__":
-    main()
+    args = sys.argv[1:]
+    main(*args)
