@@ -4,6 +4,14 @@ from numba import jit
 
 @jit
 def qwk3(a1, a2, max_rat):
+    """
+    Calculates the quadratic weighted kappa between two classifications, `a1` and `a2`.
+
+    :param a1: A list of integers corresponding to the labels assigned by the first annotator.
+    :param a2: A list of integers corresponding to the labels assigned by the second annotator.
+    :param max_rat: The number of categories (I think)
+    :return:
+    """
     assert len(a1) == len(a2)
     a1 = np.asarray(a1, dtype=int)
     a2 = np.asarray(a2, dtype=int)

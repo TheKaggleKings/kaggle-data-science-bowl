@@ -13,3 +13,4 @@ pydot
 graphviz
 numba
 numpy
+sphinx_rtd_theme
