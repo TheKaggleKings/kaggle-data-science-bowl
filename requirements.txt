@@ -11,3 +11,5 @@ plotly
 matplotlib
 pydot
 graphviz
+numba
+numpy
