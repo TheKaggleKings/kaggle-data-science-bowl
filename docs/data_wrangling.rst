@@ -4,5 +4,5 @@ Data Wrangling
 .. automodule:: src.data.clean
 	:members:
 
-.. automodule:: src.data.process_train
+.. automodule:: src.features.make_features
 	:members:
