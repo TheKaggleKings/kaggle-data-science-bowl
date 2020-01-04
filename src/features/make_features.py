@@ -33,7 +33,7 @@ def process_train(df, add_labels):
         subset = features.loc[labels.installation_id.unique()]
         full = subset.reset_index().merge(labels, on="installation_id")
     else:
-        full = features
+        full = features.reset_index()
 
     return full
 

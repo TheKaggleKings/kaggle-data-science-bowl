@@ -65,14 +65,14 @@ data/raw/train_labels.csv:
 # DATA WRANGLING -------------------------------------------------------------------------------------------------------
 data: data/processed/memory_optimized_data.pkl \
 data/processed/test.pkl data/processed/train.pkl \
-data/processed/features.pkl data/processed/test_features.pkl
+data/processed/train_features.pkl data/processed/test_features.pkl
 
 #Preprocessing pipelines
 data/processed/memory_optimized_data.pkl: src/data/data_optimizer_script.py data/raw/train.csv
 	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
 
-data/processed/features.pkl: src/features/make_features.py data/processed/memory_optimized_data.pkl
-	$(BIN)python -m src.features.make_features 'data/processed/memory_optimized_data.pkl' 'data/processed/features.pkl' True
+data/processed/train_features.pkl: src/features/make_features.py data/processed/memory_optimized_data.pkl
+	$(BIN)python -m src.features.make_features 'data/processed/memory_optimized_data.pkl' 'data/processed/train_features.pkl' True
 
 data/processed/test_features.pkl: src/features/make_features.py data/processed/test.pkl
 	$(BIN)python -m src.features.make_features 'data/processed/test.pkl' 'data/processed/test_features.pkl'
