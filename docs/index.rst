@@ -16,6 +16,8 @@ Contents:
 
    getting-started
    commands
+   qwk
+   data_wrangling
 
 
 

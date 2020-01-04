@@ -8,3 +8,9 @@ jupyterlab
 pre-commit
 black
 plotly
+matplotlib
+pydot
+graphviz
+numba
+numpy
+sphinx_rtd_theme

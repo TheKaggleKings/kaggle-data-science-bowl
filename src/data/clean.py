@@ -1,16 +1,24 @@
-import os
+import sys
 
 import pandas as pd
-from src.constants import DIR
 
 
-def main():
-    file_in = os.path.join(DIR.ROOT, "data", "raw", "test.csv")
+def main(file_in, file_out):
+    """
+    Reads csv from `file_in` and outputs pickle to `file_out`.
+
+    This cleaning script works on both test.csv and train.csv
+
+    I think this makes data_optimizer_script.py redundant but it might be needed for less powerful computers
+
+    :param file_in:
+    :param file_out:
+    :return:
+    """
     test = pd.read_csv(file_in)
 
     test = clean_test(test)
 
-    file_out = os.path.join(DIR.ROOT, "data", "processed", "test.pkl")
     test.to_pickle(file_out)
 
 
@@ -41,4 +49,5 @@ def set_dtypes(df):
 
 
 if __name__ == "__main__":
-    main()
+    args = sys.argv[1:]
+    main(*args)

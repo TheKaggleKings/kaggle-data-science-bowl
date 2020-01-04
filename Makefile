@@ -63,14 +63,22 @@ data/raw/train_labels.csv:
 
 
 # DATA WRANGLING -------------------------------------------------------------------------------------------------------
-data: data/processed/features.pkl data/processed/memory_optimized_data.pkl
+data: data/processed/memory_optimized_data.pkl \
+data/processed/test.pkl data/processed/train.pkl \
+data/processed/train_features.pkl data/processed/test_features.pkl
 
 #Preprocessing pipelines
 data/processed/memory_optimized_data.pkl: src/data/data_optimizer_script.py data/raw/train.csv
 	(cd src/data/ ; ../../$(BIN)python data_optimizer_script.py)
 
-data/processed/features.pkl: src/data/process_train.py data/processed/memory_optimized_data.pkl
-	$(BIN)python -m src.data.process_train
+data/processed/train_features.pkl: src/features/make_features.py data/processed/memory_optimized_data.pkl
+	$(BIN)python -m src.features.make_features 'data/processed/memory_optimized_data.pkl' 'data/processed/train_features.pkl' True
 
-data/processed/test.pkl: src/data/clean_test.py
-	$(BIN)python -m src.data.clean_test
+data/processed/test_features.pkl: src/features/make_features.py data/processed/test.pkl
+	$(BIN)python -m src.features.make_features 'data/processed/test.pkl' 'data/processed/test_features.pkl'
+
+data/processed/test.pkl: src/data/clean.py data/raw/test.csv
+	$(BIN)python -m src.data.clean 'data/raw/test.csv' 'data/processed/test.pkl'
+
+data/processed/train.pkl: src/data/clean.py data/raw/train.csv
+	$(BIN)python -m src.data.clean 'data/raw/train.csv' 'data/processed/train.pkl'
