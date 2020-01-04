@@ -23,6 +23,11 @@ def main(file_in, file_out, add_labels=False):
 
 
 def process_train(df, add_labels):
+    """
+    :param df:
+    :param add_labels:
+    :return:
+    """
     # Process stuff
     features = make_title_features(df)
 
